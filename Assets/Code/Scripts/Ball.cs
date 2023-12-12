@@ -54,6 +54,23 @@ public class Ball : MonoBehaviour
             //Le decimos al disco que salga con esa velocidad previamente calculada
             rb.velocity = direction * diskSpeed;
         }
+        if (collision.gameObject.name == "PlayerRight")
+        {
+            //Obtenemos el factor de golpeo, le pasamos la posición del disco, la posición de la pala, y lo que mide de alto el collider de la pala (es decir, lo que mide la pala)
+            float yF = HitFactor(transform.position, collision.transform.position, collision.collider.bounds.size.y);
+
+            /* Le damos una nueva dirección al disco
+             * En este caso con una X a la derecha
+             * Y nuestro factor de golpeo calculado
+             * Normalizado todo el vector a 1 para que la bola no acelere
+             */
+
+            Vector2 direction = new Vector2(-1, yF).normalized; //hacemos que no acelere en su movimiento diagonal
+            //Le decimos al disco que salga con esa velocidad previamente calculada
+            rb.velocity = direction * diskSpeed;
+        }
+
+
     }
 
     /*
